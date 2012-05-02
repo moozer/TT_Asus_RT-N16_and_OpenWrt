@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 MYIPADDRESS="192.168.1.123"
 ROUTERIPADDRESS="192.168.1.1"
@@ -20,69 +20,102 @@ else
 	IMAGEFILE="dd-wrt.v24-18024_NEWD-2_K2.6_mini_RT-N16.trx"
 fi;
 
+# ---- Function definitions...
+function WaitForPingSuccess {
+	ping -c 1 $1 > /dev/null
+	while [ $? -gt 0 ]; do
+		echo Failed to ping $1
+		echo Enable network in network manager or plug in cable correctly?
+		sleep 5
+		ping -q -c 1 $1 > /dev/null
+	done
+}
+
+function RetrieveImage {
+	echo Retrieving image from $INETLOCATION$IMAGEFILE
+
+	if [ ! -e $IMAGEFILE ]; then
+		echo Verifying internet connection
+		WaitForPingSuccess "google.com"
+		wget $INETLOCATION$IMAGEFILE
+	else
+		echo file already exists, not downloading
+	fi
+
+	if [ ! -e $IMAGEFILE ]; then
+		echo something whent wrong while downloading
+		echo location $INETLOCATION
+		echo filename $IMAGEFILE
+		ls
+		exit
+	fi
+}
+
+function CheckInterfaces {
+	echo Checking enabled interfaces
+	IFCHECKCMD="/sbin/ifconfig | grep Link | awk '{print $1}' | sort | egrep -v 'lo|inet6'"
+
+	IFTXT=$(eval $IFCHECKCMD)
+	while [ -n "$IFTXT" ]; do
+		echo "Interfaces still active"
+		eval $IFCHECKCMD
+		echo disable in network manager or enable+disable networking to reset interface
+		sleep 5
+		IFTXT=$(eval $IFCHECKCMD)
+	done;
+
+}
+
+function FlashRouter {
+	echo uploading to router. file  "$TEMPDATADIR/$IMAGEFILE"
+	cd $TEMPDATADIR
+
+	echo Unplug power cord
+	echo press "restore" button
+	echo reinsert power cord
+	echo wait 2 seconds and release button
+	echo the power LED should now be blinking
+	read -p "press any key when ready" DUMMYVAR	
+
+	tftp $ROUTERIPADDRESS -m binary -c put $IMAGEFILE
+
+
+
+}
+
 # ---- temp dir handling
 mkdir -p $TEMPDATADIR
 cd $TEMPDATADIR
 
 # ---- get image file
-echo Retrieving image from $INETLOCATION$IMAGEFILE
-
-if [ ! -e $IMAGEFILE ]; then
-	wget $INETLOCATION$IMAGEFILE
-else
-	echo file already exists, not downloading
-fi
-
-if [ ! -e $IMAGEFILE ]; then
-	echo something whent wrong while downloading
-	echo location $INETLOCATION
-	echo filename $IMAGEFILE
-	ls
-	exit
-fi
+RetrieveImage
 
 # --- disable interface
-echo Checking enabled interfaces
-IFCHECKCMD="/sbin/ifconfig | grep Link | awk '{print $1}' | sort | egrep -v 'lo|inet6'"
-
-IFTXT=$(eval $IFCHECKCMD)
-while [ -n "$IFTXT" ]; do
-	echo "Interfaces still active"
-	eval $IFCHECKCMD
-	echo disable in network manager or enable+disable networking to reset interface
-	read -p "Press any key to try again" DUMMYVAR
-	IFTXT=$(eval $IFCHECKCMD)
-done;
+CheckInterfaces
 
 # --- set interface values
 echo Root privileges now needed...
-su -c $INITIALDIR/$INTERFACESCRIPT
+echo using interface $INTERFACE and host ip $MYIPADDRESS
+su -c "$INITIALDIR/$INTERFACESCRIPT $INTERFACE $MYIPADDRESS"
 
-while [ $(ping -c 1 $ROUTERIPADDRESS > /dev/null) ]; do
-	echo router not found at $ROUTERIPADDRESS
-	echo Is cable connected?
-	read -p "Press any key to try again" DUMMYVAR
-done
+if [ ! $? -eq 0 ]; then
+	echo something went wrong in setting interface parameters
+	exit
+fi
 
-echo router found at $ROUTERIPADDRESS
+echo checking router accssability
+WaitForPingSuccess $ROUTERIPADDRESS
+
+echo "Something found at $ROUTERIPADDRESS (let's hope it the router)"
 
 # --- flashing the router
-echo uploading to router. file  "$TEMPDATADIR$IMAGEFILE"
-cd $TEMPDATADIR
-tftp $ROUTERIPADDRESS -c put $IMAGEFILE
+FlashRouter
 
-echo Do this if power button is NOT blinking
-echo 1. Removed power cord
-echo 2. press red button
-echo 3. reinsert power cord
-echo 4. Wait 2 seconds
-echo 5. release red button
-echo otherwise, wait 10 seconds and powercycle the router
+# --- a bit for the impatient
+echo Every thing seems to be working.
+echo wait a bit....
+sleep 90
 
-ping -c 1 $ROUTERIPADDRESS
-while [ $? ]; do
-	echo Waiting for router to be online.
-	sleep 2
-	ping -c 5 -i 5 $ROUTERIPADDRESS
-done
-
+echo unplug power cord
+echo reinsert power cord
+echo The router should be flashed. bye.
