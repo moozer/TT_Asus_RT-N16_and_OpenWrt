@@ -11,14 +11,17 @@ It is intended to be the easy solution when the router behaves oddly due to some
 
 Requirements
 ------------
-- A pc (or other) running linux
--- You must have root access on this machine
--- Currently only "su" is supported (as oposed to "sudo")
-- An Asus RT_N16 + power supply
--- The state of the router is not important 
--- (at least I have not suceeded in bircking it yet)
-- a patch cable
-- internet access
+* A pc (or other) running linux
+
+    You must have root access on this machine. 
+    Currently only "su" is supported (as oposed to "sudo")
+    
+* An Asus RT_N16 + power supply
+
+    The state of the router is not important (at least I have not suceeded in bircking it yet)
+
+* a patch cable
+* internet access
 
 HowTo
 -----
