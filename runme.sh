@@ -5,12 +5,11 @@ ROUTERIPADDRESS="192.168.1.1"
 INTERFACE="eth0"
 INTERFACESCRIPT="IfStuffAsRoot.sh"
 TEMPDATADIR="/home/moz/Downloads/asus_rt-n16"
-WRT="DDWRT"
+WRT="OpenWrt"
 INITIALDIR=$(pwd)
 
 # file to get
-
-if [ "$WRT" = "OpenWrt" ]; then
+if [ $WRT = "OpenWrt" ]; then
 	# - OpenWrt
 	INETLOCATION="http://openwrt.razvi.ro/attitude_adjustment_asus_rt-n16_svn_r30776/"
 	IMAGEFILE="openwrt-brcm4716-squashfs.trx"
@@ -70,12 +69,14 @@ function FlashRouter {
 	echo uploading to router. file  "$TEMPDATADIR/$IMAGEFILE"
 	cd $TEMPDATADIR
 
-	echo Unplug power cord
-	echo press "restore" button
-	echo reinsert power cord
-	echo wait 2 seconds and release button
+	echo
+	echo "Please do the following"
+	echo "- Unplug power cord"
+	echo "- press \"restore\" button"
+	echo "- reinsert power cord"
+	echo "- wait 2 seconds and release button"
 	echo the power LED should now be blinking
-	read -p "press any key when ready" DUMMYVAR	
+	read -p "press enter when ready" DUMMYVAR
 
 	tftp $ROUTERIPADDRESS -m binary -c put $IMAGEFILE
 
@@ -112,10 +113,15 @@ echo "Something found at $ROUTERIPADDRESS (let's hope it the router)"
 FlashRouter
 
 # --- a bit for the impatient
+echo 
+echo
 echo Every thing seems to be working.
+echo "(provided the power LED is turns off)"
 echo wait a bit....
 sleep 90
 
-echo unplug power cord
-echo reinsert power cord
-echo The router should be flashed. bye.
+echo
+echo Please do the following
+echo - unplug power cord
+echo - reinsert power cord
+echo The router should now be flashed. bye.
