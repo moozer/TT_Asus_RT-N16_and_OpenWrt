@@ -31,6 +31,9 @@ HowTo
 
 3. Follow what the script says
 
+4. Resetting to defaults: `telnet 192.168.1.1`, `mtd erase nvram` and finally `reboot`
+
+
 Resources used
 --------------
 * OpenWrt forum discussion: http://openwrt.razvi.ro/attitude_adjustment_asus_rt-n16_svn_r30776/openwrt-brcm4716-squashfs.trx
