@@ -31,6 +31,13 @@ HowTo
 
 3. Follow what the script says
 
+Resources used
+--------------
+* OpenWrt forum discussion: http://openwrt.razvi.ro/attitude_adjustment_asus_rt-n16_svn_r30776/openwrt-brcm4716-squashfs.trx
+* Domething from DD-wrt: http://www.dd-wrt.com/wiki/index.php/Asus_RT-N16
+* Asus reflashing utility (from CD)
+* Creativity and some help using the serial connection
+
 
 Question?
 ---------

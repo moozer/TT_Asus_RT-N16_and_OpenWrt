@@ -2,10 +2,11 @@
 
 MYIPADDRESS="192.168.1.123"
 ROUTERIPADDRESS="192.168.1.1"
+
 INTERFACE="eth0"
 INTERFACESCRIPT="IfStuffAsRoot.sh"
-TEMPDATADIR="/home/moz/Downloads/asus_rt-n16"
-WRT="DebWrt"
+TEMPDATADIR="localtemp"
+WRT="OpenWrt"
 INITIALDIR=$(pwd)
 
 # file to get
@@ -76,7 +77,6 @@ function CheckInterfaces {
 
 function FlashRouter {
 	echo uploading to router. file  "$TEMPDATADIR/$IMAGEFILE"
-	cd $TEMPDATADIR
 
 	echo
 	echo "Please do the following"
@@ -88,8 +88,6 @@ function FlashRouter {
 	read -p "press enter when ready" DUMMYVAR
 
 	tftp $ROUTERIPADDRESS -m binary -c put $IMAGEFILE
-
-
 
 }
 
@@ -124,13 +122,21 @@ FlashRouter
 # --- a bit for the impatient
 echo 
 echo
-echo Every thing seems to be working.
+echo "Every thing seems to be working."
 echo "(provided the power LED is turns off)"
-echo wait a bit....
-sleep 90
+echo "wait a bit (5 min) ...."
+sleep 300
 
 echo
-echo Please do the following
-echo - unplug power cord
-echo - reinsert power cord
-echo The router should now be flashed. bye.
+echo "Please do the following"
+echo "- unplug power cord"
+echo "- reinsert power cord"
+echo "The router should now be flashed."
+echo
+echo "Wait for initialization to be done... "
+echo "(more than 210 seconds)"
+WaitForPingSuccess $ROUTERIPADDRESS
+echo "Initialization should now be done."
+
+echo "bye."
+
