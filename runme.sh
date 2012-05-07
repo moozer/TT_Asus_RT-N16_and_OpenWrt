@@ -76,6 +76,18 @@ function CheckInterfaces {
 }
 
 function FlashRouter {
+	TFTPPROGRAM="tftp"
+
+	echo "checking tftp program: $TFTPPROGRAM"
+	command -v $TFTPPROGRAM > /dev/null
+	if [ $? -eq 1 ]; then
+		echo not found
+		echo "try installing by doing 'apt-get install tftp-hpa'"
+		exit
+	else
+		echo found at $(which $TFTPPROGRAM)
+	fi
+
 	echo uploading to router. file  "$TEMPDATADIR/$IMAGEFILE"
 
 	echo
