@@ -23,6 +23,10 @@ elif [ $WRT = "DebWrt" ]; then
 	# - debwrt
 	INETLOCATION="http://dl.dropbox.com/u/29682150/3.2/"
 	IMAGEFILE="debwrt-firmware-brcm4716-squashfs-3.2-021412.trx"
+elif [ $WRT = "OpenWrtLocal" ]; then
+	# - local repository
+	INETLOCATION="ftp://192.169.1.130/openwrt/bin/brcm4716/"
+	IMAGEFILE="openwrt-brcm4716-squashfs.trx"
 else
 	echo No valid wrt specified
 	exit

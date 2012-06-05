@@ -25,7 +25,7 @@ Requirements
 
 HowTo
 -----
-1. Get this code: `git pull git://github.com/moozer/TT_Asus_RT-N16_and_OpenWrt.git`
+1. Get this code: `git clone https://github.com/moozer/TT_Asus_RT-N16_and_OpenWrt.git`
 
 2. Run the script: `cd TT_Asus_RT-N16_and_OpenWrt` followed by `./runme.sh`
 
