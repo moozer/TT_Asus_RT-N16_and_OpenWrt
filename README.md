@@ -18,7 +18,7 @@ Requirements
     
 * An Asus RT_N16 + power supply
 
-    The state of the router is not important (at least I have not suceeded in bircking it yet)
+    The state of the router is not important (at least I have not suceeded in bricking it yet)
 
 * a patch cable
 * internet access
@@ -27,11 +27,13 @@ HowTo
 -----
 1. Get this code: `git clone https://github.com/moozer/TT_Asus_RT-N16_and_OpenWrt.git`
 
-2. Run the script: `cd TT_Asus_RT-N16_and_OpenWrt` followed by `./runme.sh`
+2. Change the parameters in `runme.sh`
 
-3. Follow what the script says
+3. Run the script: `cd TT_Asus_RT-N16_and_OpenWrt` followed by `./runme.sh`
 
-4. Resetting to defaults: `telnet 192.168.1.1`, `mtd erase nvram` and finally `reboot`
+4. Follow what the script says
+
+5. Resetting to defaults: `telnet 192.168.1.1`, `mtd erase nvram` and finally `reboot`
 
 
 Resources used
