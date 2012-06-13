@@ -6,19 +6,23 @@ ROUTERIPADDRESS="192.168.1.1"
 INTERFACE="eth0"
 INTERFACESCRIPT="IfStuffAsRoot.sh"
 TEMPDATADIR="localtemp"
-WRT="OpenWrt"
+WRT="OpenWrtEal"
 INITIALDIR=$(pwd)
 
 # file to get
+# we keep the list here for later use, should it be relevant
 if [ $WRT = "OpenWrt" ]; then
 	# - OpenWrt
 	INETLOCATION="http://openwrt.razvi.ro/attitude_adjustment_asus_rt-n16_svn_r30776/"
+	IMAGEFILE="openwrt-brcm4716-squashfs.trx"
+elif [ $WRT = "OpenWrtEal" ]; then
+	# - DDWRT
+	INETLOCATION="htp://ittech.sde.dk/openwrt/brcm4716/"
 	IMAGEFILE="openwrt-brcm4716-squashfs.trx"
 elif [ $WRT = "DDWRT" ]; then
 	# - DDWRT
 	INETLOCATION="ftp://dd-wrt.com/others/eko/BrainSlayer-V24-preSP2/2011/12-20-11-r18024/broadcom_K26/"
 	IMAGEFILE="dd-wrt.v24-18024_NEWD-2_K2.6_mini_RT-N16.trx"
-
 elif [ $WRT = "DebWrt" ]; then
 	# - debwrt
 	INETLOCATION="http://dl.dropbox.com/u/29682150/3.2/"
