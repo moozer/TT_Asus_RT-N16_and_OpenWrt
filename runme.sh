@@ -151,6 +151,8 @@ echo "The router should now be flashed."
 echo
 echo "Wait for initialization to be done... "
 echo "(more than 210 seconds)"
+sleep 210
+
 WaitForPingSuccess $ROUTERIPADDRESS
 echo "Initialization should now be done."
 
