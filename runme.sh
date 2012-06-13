@@ -2,6 +2,7 @@
 
 MYIPADDRESS="192.168.1.123"
 ROUTERIPADDRESS="192.168.1.1"
+ROUTERIPADDRESSAFTERFLASH="192.168.1.1"
 
 INTERFACE="eth0"
 INTERFACESCRIPT="IfStuffAsRoot.sh"
@@ -151,13 +152,15 @@ echo
 echo "Please do the following"
 echo "- unplug power cord"
 echo "- reinsert power cord"
+read -p "press enter when ready" DUMMYVAR
+
 echo "The router should now be flashed."
 echo
 echo "Wait for initialization to be done... "
 echo "(more than 210 seconds)"
 sleep 210
 
-WaitForPingSuccess $ROUTERIPADDRESS
+WaitForPingSuccess $ROUTERIPADDRESSAFTERFLASH
 echo "Initialization should now be done."
 
 echo "bye."
