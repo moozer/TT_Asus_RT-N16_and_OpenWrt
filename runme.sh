@@ -18,7 +18,7 @@ if [ $WRT = "OpenWrt" ]; then
 	IMAGEFILE="openwrt-brcm4716-squashfs.trx"
 elif [ $WRT = "OpenWrtEal" ]; then
 	# - DDWRT
-	INETLOCATION="htp://ittech.sde.dk/openwrt/brcm4716/"
+	INETLOCATION="http://ittech.sde.dk/openwrt/brcm4716/"
 	IMAGEFILE="openwrt-brcm4716-squashfs.trx"
 elif [ $WRT = "DDWRT" ]; then
 	# - DDWRT
