@@ -1,9 +1,13 @@
 #!/bin/sh
 
+# say hi
+echo "$(date "+%H:%M:%S") - Attempt to FTP server $FTP_HOST"
+
 #source FTP parameters
 . ./ftp.conf
 
-echo "$(date "+%H:%M:%S") - Attempt to FTP server $FTP_HOST"
+# save initial dir
+CurDir=$PWD
 
 # do the FTP put
 cd trunk/bin/brcm4716
@@ -11,17 +15,24 @@ cd trunk/bin/brcm4716
 ftp -i -n <<EOF
 open $FTP_HOST
 user $FTP_LOGIN $FTP_PASSWORD
+
+mkdir openwrt
 cd openwrt
 ls
+
 mkdir packages
-cd  packages
+cd packages
+lcd packages
 mput *
+ls
 cd ..
-ls
+lcd ..
+
 put openwrt-brcm4716-squashfs.trx
-ls
 put ../../.config config
+put $CurDir/htaccess .htaccess
 ls
+
 quit
 EOF
 
