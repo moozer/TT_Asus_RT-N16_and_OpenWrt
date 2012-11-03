@@ -19,6 +19,7 @@ Requirements
 * An Asus RT_N16 + power supply
 
     The state of the router is not important (at least I have not suceeded in bricking it yet)
+    If the router runs DD-WRT, the guide will most likely fail.
 
 * a patch cable
 * internet access
@@ -42,6 +43,10 @@ Resources used
 * Domething from DD-wrt: http://www.dd-wrt.com/wiki/index.php/Asus_RT-N16
 * Asus reflashing utility (from CD)
 * Creativity and some help using the serial connection
+
+Other stuff
+-----------
+In the compilation directory, you'll find recomplitation notes and some scripts, should you want to recompile the kernel yourself.
 
 
 Question?

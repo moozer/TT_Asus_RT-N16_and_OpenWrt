@@ -10,12 +10,15 @@ echo "enable as buildin: Luci -> 1. Collections -> <*> Luci"
 
 # enable other modules
 ./scripts/feeds install bandwidthd
-echo "enable as buildin: Utilities -> <M> bandwidthd"
+echo "enable as module: Utilities -> <M> bandwidthd"
 ./scripts/feeds install tcpdump
-echo "enable as buildin: Network -> <M> Tcpdump"
+echo "enable as module: Network -> <M> Tcpdump"
 ./scripts/feeds install ettercap
-echo "enable as buildin: Network -> <M> Ettercap"
+echo "enable as module: Network -> <M> Ettercap"
+./scripts/feeds install block-mount
+echo "enable as module: Base system -> <M> block-mount"
+echo "enable fdisk: Utilities -> disc -> <M> fdisk"
+echo "enable kmod-fs-vfat: Kernel modules -> Filesystems -> <M> kmod-fs-vfat"
 
 # other changes
 echo "change default package dir: [*] Image -> [*] Version Configuration > Release repository: http://ittech.eal.dk/openwrt/packages"
-
