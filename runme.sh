@@ -17,8 +17,8 @@ if [ $WRT = "OpenWrt" ]; then
 	INETLOCATION="http://openwrt.razvi.ro/attitude_adjustment_asus_rt-n16_svn_r30776/"
 	IMAGEFILE="openwrt-brcm4716-squashfs.trx"
 elif [ $WRT = "OpenWrtEal" ]; then
-	# - DDWRT
-	INETLOCATION="http://ittech.sde.dk/openwrt/brcm4716/"
+	# - OpenWRT - EAL version
+	INETLOCATION="http://ittech.eal.dk/openwrt/"
 	IMAGEFILE="openwrt-brcm4716-squashfs.trx"
 elif [ $WRT = "DDWRT" ]; then
 	# - DDWRT

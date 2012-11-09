@@ -22,3 +22,8 @@ echo "enable kmod-fs-vfat: Kernel modules -> Filesystems -> <M> kmod-fs-vfat"
 
 # other changes
 echo "change default package dir: [*] Image -> [*] Version Configuration > Release repository: http://ittech.eal.dk/openwrt/packages"
+
+
+# config changes
+echo "In ./package/network/services/dnsmasq/files/dhcp.conf"
+echo "option rebind_protection 0"
